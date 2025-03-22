@@ -48,5 +48,7 @@ def create_db_and_tables():
 
 # 创建会话工厂
 def get_session():
+    # 确保表结构存在（重复创建不会有影响）
+    create_db_and_tables()
     with Session(engine) as session:
         yield session
