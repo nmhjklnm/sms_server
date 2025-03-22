@@ -53,4 +53,4 @@ async def index(request: Request):
 # 使用该方法启动应用: uvicorn backend.main:app --host 0.0.0.0 --port 8322
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("backend.main:app", host=settings.host, port=settings.port, reload=True, log_level=settings.log_level)
+    uvicorn.run("backend.main:app", host=settings.host, port=settings.port, reload=False, log_level=settings.log_level)

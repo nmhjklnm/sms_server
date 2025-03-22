@@ -17,11 +17,14 @@ class SMSRecordCreate(BaseModel):
         populate_by_name = True
         json_schema_extra = {
             "example": {
-                "from": "10086",
-                "contact_name": "中国移动",
-                "sms": "您的验证码是123456，请在5分钟内完成验证。",
-                "sim_slot": "SIM1(15012345678)",
-                "receive_time": "2023-03-15T14:30:00Z"
+                    "from": "10086",
+                    "contact_name": "中国移动",
+                    "phone_area": "86",
+                    "sms": "您的验证码是123456，请在5分钟内完成验证。",
+                    "sim_slot": "SIM1(15012345678)",
+                    "sim_sub_id": "sub_id_example",
+                    "device_name": "Device_A",
+                    "receive_time": "2025-03-15T14:30:00Z"
             }
         }
 
