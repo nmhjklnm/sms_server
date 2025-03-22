@@ -1,6 +1,6 @@
 from fastapi import Request, Response
 import traceback
-from backend.utils.logger import get_logger
+from api.utils.logger import get_logger
 
 # 获取日志记录器
 logger = get_logger("uvicorn.error")

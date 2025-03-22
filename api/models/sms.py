@@ -2,7 +2,7 @@ from sqlmodel import SQLModel, Field, create_engine, Session
 from typing import Optional
 from datetime import datetime
 import os
-from backend.config.settings import settings
+from api.config.settings import settings
 
 # 确保数据目录存在
 def ensure_data_directory():

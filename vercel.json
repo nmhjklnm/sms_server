@@ -1,26 +1,14 @@
 {
-  "builds": [
-    {
-      "src": "backend/main.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "frontend/static/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "frontend/static/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "backend/main.py"
-    }
-  ],
-  "env": {
-    "PYTHON_VERSION": "3.9",
-    "PORT": "8000"
-  }
+    "builds": [
+        {
+            "src": "/api/main.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "api/main.py"
+        }
+    ]
 }

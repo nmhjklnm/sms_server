@@ -4,7 +4,7 @@ import sys
 from logging.handlers import RotatingFileHandler
 from datetime import datetime
 
-from backend.config.settings import settings
+from api.config.settings import settings
 
 def setup_logging():
     """设置日志配置"""

@@ -4,14 +4,14 @@ from sqlmodel import Session, select
 from typing import Optional, List
 from datetime import datetime, timedelta
 
-from backend.models.sms import SMSRecord, get_session
-from backend.models.schema import SMSRecordCreate, ResponseWrapper
-from backend.services.sms_service import (
+from api.models.sms import SMSRecord, get_session
+from api.models.schema import SMSRecordCreate, ResponseWrapper
+from api.services.sms_service import (
     extract_code_with_context, 
     extract_phone_from_sim_slot,
     query_latest_code
 )
-from backend.config.settings import settings
+from api.config.settings import settings
 
 # 创建API路由器
 router = APIRouter(prefix="/v1/sms", tags=["sms"])

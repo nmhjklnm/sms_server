@@ -4,11 +4,11 @@ from fastapi.templating import Jinja2Templates
 import os
 from contextlib import asynccontextmanager
 
-from backend.routes.v1.api import router
-from backend.models.sms import create_db_and_tables, ensure_data_directory
-from backend.config.settings import settings
-from backend.middlewares.logging_middleware import logging_middleware
-from backend.utils.logger import setup_logging
+from api.routes.v1.api import router
+from api.models.sms import create_db_and_tables, ensure_data_directory
+from api.config.settings import settings
+from api.middlewares.logging_middleware import logging_middleware
+from api.utils.logger import setup_logging
 
 # 设置日志配置
 logger = setup_logging()

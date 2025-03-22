@@ -3,7 +3,7 @@ from typing import Optional, Tuple
 from datetime import datetime, timedelta
 from sqlmodel import select, Session
 
-from backend.models.sms import SMSRecord, engine
+from api.models.sms import SMSRecord, engine
 
 def extract_code_with_context(sms_content: str) -> Optional[str]:
     """从短信内容中提取验证码"""
