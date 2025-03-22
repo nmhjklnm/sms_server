@@ -60,6 +60,7 @@ sudo systemctl status sms-webhook.service
 
 ## 配置教程（带图示）
 
+<img width="440" alt="Code 2025-03-23 02 40 55" src="https://github.com/user-attachments/assets/343be2c5-cc7c-4bb8-bf5f-de749af3e329" />
 
 
 >  图片示例：
