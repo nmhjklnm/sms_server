@@ -1,195 +1,137 @@
 # SMS接收服务器
 
-这是一个短信接收平台，提供强大的SMS接收服务和验证码提取功能。
+一个为 [SmsForwarder](https://github.com/pppscn/SmsForwarder) 提供 webhook 通道支持的服务端平台，具备实时接收短信、自动提取验证码、历史记录查询等功能。
 
 ## 核心功能
 
-- **短信接收**：支持接收来自多种服务的SMS消息
-- **验证码自动提取**：智能识别并提取短信中的验证码
-- **历史记录查询**：方便查看已接收的所有短信
-- **实时更新**：无需刷新页面即可获取最新短信
-- **多平台支持**：兼容各类应用和网站的验证流程
+- 📥 **短信接收**：支持来自 SmsForwarder 的 webhook 消息接入
+- 🔎 **验证码自动提取**：自动识别短信中的验证码
+- 🗂 **历史记录查询**：支持按手机号和时间段查询
+- 🔄 **实时更新**：前端自动刷新获取新消息
+- 🌐 **多平台兼容**：支持 Web 界面和 API 调用
 
-## 项目结构
+## 项目结构概览
 
 ```
 sms_server
-├── backend
-│   ├── main.py                  # FastAPI应用程序入口
-│   ├── __init__.py              # 后端包初始化
-│   ├── routes
-│   │   ├── __init__.py          # 路由包初始化
-│   │   └── v1
-│   │       ├── __init__.py      # v1版本API路由模块初始化
-│   │       └── api.py           # 定义SMS和验证码提取相关的API路由
-│   ├── services
-│   │   ├── __init__.py          # 服务包初始化
-│   │   └── sms_service.py       # SMS处理服务和业务逻辑
-│   ├── models
-│   │   ├── __init__.py          # 模型包初始化 
-│   │   ├── schema.py            # Pydantic模型定义
-│   │   └── sms.py               # 数据库模型定义
-│   ├── middlewares
-│   │   └── logging_middleware.py # 日志中间件
-│   ├── utils
-│   │   ├── __init__.py          # 工具包初始化
-│   │   └── logger.py            # 日志工具
-│   └── config
-│       ├── __init__.py          # 配置模块初始化
-│       ├── settings.py          # 加载和管理应用配置
-│       └── .env                 # 存储环境变量
-├── frontend
-│   ├── templates
-│   │   ├── base.html            # 基础HTML模板
-│   │   └── index.html           # 首页模板
-│   └── static
-│       ├── css
-│       │   └── styles.css       # 应用样式
-│       └── js
-│           └── app.js           # 前端JavaScript逻辑
-├── data                         # 数据存储目录
-│   └── sms_database.db          # SQLite数据库文件
-├── Dockerfile                   # Docker镜像构建文件
-├── .env                         # 环境变量配置
-├── .env.example                 # 环境变量示例
-├── requirements.txt             # 项目依赖列表
-├── sms_service.sh               # systemd服务安装脚本
-└── README.md                    # 项目文档和说明
+├── backend               # 后端服务
+│   ├── main.py           # FastAPI 应用入口
+│   ├── routes            # API 路由
+│   ├── services          # 核心业务逻辑
+│   ├── models            # 数据库与 Pydantic 模型
+│   ├── middlewares       # 日志等中间件
+│   ├── utils             # 工具模块
+│   └── config            # 配置模块
+├── frontend              # 前端模板和静态资源
+├── data                  # 数据文件夹 (SQLite)
+├── Dockerfile            # Docker 支持
+├── sms_service.sh        # systemd 服务安装脚本
+├── requirements.txt      # Python 依赖
+└── README.md             # 项目说明
 ```
 
-## 安装指南
+## 快速安装
 
-### 方法1: 直接安装
+### 方式1：本地安装运行
 
-1. 克隆仓库:
-   ```
-   git clone <仓库地址>
-   cd sms_server
-   ```
-
-2. 安装所需依赖:
-   ```
-   pip install -r requirements.txt
-   ```
-
-3. 配置环境变量:
-   ```
-   cp .env.example .env
-   # 编辑.env文件设置必要的环境变量
-   ```
-
-### 方法2: Docker安装
-
-1. 使用 Docker 构建镜像:
-   ```
-   docker build -t sms-server .
-   ```
-
-2. 启动容器:
-   ```
-   docker run -d --name sms-server -p 8322:8322 -v ./data:/app/data sms-server
-   ```
-
-### 方法3: 使用systemd服务
-
-1. 执行服务安装脚本:
-   ```
-   sudo bash sms_service.sh
-   ```
-
-2. 检查服务状态:
-   ```
-   sudo systemctl status sms-webhook.service
-   ```
-
-## 服务配置
-
-您可以通过编辑 `.env` 文件来配置服务:
-
-```
-# 数据库配置
-DATABASE_URL=sqlite:///data/sms_database.db
-
-# API密钥配置 
-API_KEY=your_api_key_here
-
-# 服务器配置
-HOST=0.0.0.0
-PORT=8322
-LOG_LEVEL=info  # 可选: debug, info, warning, error, critical
-```
-
-## 运行应用
-
-### 方法1: 使用Python运行
-
-在项目根目录下执行以下命令启动FastAPI应用:
-```
+```bash
+git clone <仓库地址>
+cd sms_server
+pip install -r requirements.txt
+cp .env.example .env   # 并根据需要修改配置
 uvicorn backend.main:app --host 0.0.0.0 --port 8322 --reload
 ```
 
-### 方法2: 脚本运行
-
-在项目根目录下执行:
-```
-python -m backend.main
-```
-
-应用将在配置的端口上运行（默认为 `http://0.0.0.0:8322`）。
-
-## API使用示例
-
-### 接收短信
+### 方式2：Docker 一键部署
 
 ```bash
-curl -X POST "http://localhost:8322/v1/sms/receive" \
-  -H "Content-Type: application/json" \
-  -H "X-API-Key: your_api_key_here" \
-  -d '{
-    "from": "+1234567890",
-    "contact_name": "验证码服务",
-    "sms": "您的验证码是: 123456，请在5分钟内使用。",
-    "sim_slot": "13800138000",
-    "receive_time": "2023-04-01T12:00:00Z"
-  }'
+docker build -t sms-server .
+docker run -d --name sms-server -p 8322:8322 -v $(pwd)/data:/app/data sms-server
 ```
 
-### 查询验证码
+### 方式3：注册为 systemd 服务
 
 ```bash
-curl "http://localhost:8322/v1/sms/code?phone_number=13800138000"
+sudo bash sms_service.sh
+sudo systemctl status sms-webhook.service
 ```
 
-### 获取历史记录
+---
+
+## 配置教程（带图示）
+
+
+
+>  图片示例：
+```
+https://sms.nextmind.space/v1/sms/receive
+```
+以及
+
+```
+{
+  "from": "{{FROM}}",
+  "contact_name": "{{CONTACT_NAME}}",
+  "phone_area": "{{PHONE_AREA}}",
+  "sms": "{{SMS}}",
+  "sim_slot": "{{CARD_SLOT}}",
+  "sim_sub_id": "{{CARD_SUBID}}",
+  "device_name": "{{DEVICE_NAME}}",
+  "receive_time": "{{RECEIVE_TIME}}"
+}
+```
+
+
+---
+
+## 常用 API 示例
+
+### 📩 接收短信
 
 ```bash
-curl "http://localhost:8322/v1/sms/history?limit=10&offset=0"
+POST /v1/sms/receive
+```
+```json
+{
+  "from": "+1234567890",
+  "contact_name": "验证码服务",
+  "sms": "您的验证码是: 123456，请在5分钟内使用。",
+  "sim_slot": "13800138000",
+  "receive_time": "2023-04-01T12:00:00Z"
+}
 ```
 
-## 应用场景
+### 🔎 查询验证码
 
-- 注册新账号需要接收验证码
-- 测试短信发送功能
-- 需要临时手机号接收短信
-- 不想泄露个人手机号
-- API集成到自动化测试流程
+```bash
+GET /v1/sms/code?phone_number=13800138000
+```
 
-## API文档
+### 🗂 获取历史记录
 
-API文档可在`http://localhost:8322/docs`访问。
+```bash
+GET /v1/sms/history?limit=10&offset=0
+```
+
+---
 
 ## 前端界面
 
-前端界面可通过访问`http://localhost:8322/`使用。主要功能包括：
+- 首页：`http://<你的IP>:8322/`
+- 在线文档：`http://<你的IP>:8322/docs`
 
-- 查询特定手机号的验证码
-- 查看最近接收的短信记录
-- 查看短信详细内容
+**前端支持功能**：
+- 查看最近短信
+- 按手机号快速查询验证码
+- 详细查看短信内容
 
-## 贡献指南
+---
 
-欢迎贡献！请通过issue或提交pull request来提供改进或修复bug。
+## 开发与贡献
+
+欢迎提 issue 或 pull request，让这个项目变得更好！
 
 ## 许可证
 
-本项目采用MIT许可证。详情请查看LICENSE文件。
+MIT License，详情请见 LICENSE 文件。
+
