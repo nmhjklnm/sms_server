@@ -1,0 +1,301 @@
+/* 全局样式 */
+:root {
+    --primary-color: #4e73df;
+    --secondary-color: #6c757d;
+    --success-color: #1cc88a;
+    --info-color: #36b9cc;
+    --warning-color: #f6c23e;
+    --danger-color: #e74a3b;
+    --light-color: #f8f9fc;
+    --dark-color: #5a5c69;
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fc;
+    color: #5a5c69;
+    line-height: 1.6;
+}
+
+/* 导航栏样式 */
+.navbar {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.navbar-dark {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* 卡片样式 */
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    transition: all var(--transition-speed) ease;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.15);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e3e6f0;
+    background-color: #fff;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    color: white;
+}
+
+.bg-gradient-secondary {
+    background: linear-gradient(135deg, #858796 0%, #60616f 100%);
+    color: white;
+}
+
+.bg-gradient-info {
+    background: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
+    color: white;
+}
+
+/* 欢迎横幅 */
+.welcome-banner {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+/* 特性卡片 */
+.feature-card {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: all var(--transition-speed) ease;
+    background-color: #f8f9fc;
+}
+
+.feature-card:hover {
+    background-color: #eaecf4;
+    transform: translateY(-2px);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(78, 115, 223, 0.1);
+    border-radius: 50%;
+}
+
+.feature-content h5 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.feature-content p {
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    color: #858796;
+}
+
+/* 表单样式 */
+.form-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.input-group-text {
+    background-color: #f8f9fc;
+    border-right: none;
+}
+
+.form-control {
+    border-left: none;
+    padding-left: 0;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #d1d3e2;
+}
+
+/* 按钮样式 */
+.btn {
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #2653d4;
+    border-color: #244ec9;
+}
+
+/* 查询结果样式 */
+.result-container {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid #e3e6f0;
+    transition: all var(--transition-speed) ease;
+}
+
+.result-header {
+    padding: 0.75rem 1rem;
+    background-color: #f8f9fc;
+    font-weight: 600;
+    border-bottom: 1px solid #e3e6f0;
+    color: var(--primary-color);
+}
+
+.result-body {
+    padding: 1rem;
+    background-color: white;
+}
+
+/* 表格样式 */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-top: none;
+    padding: 1rem;
+}
+
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.sms-content {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 分页样式 */
+.pagination {
+    margin-bottom: 0;
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.page-link {
+    color: var(--primary-color);
+}
+
+.page-link:hover {
+    color: #224abe;
+}
+
+/* 加载动画 */
+.spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* 页脚样式 */
+.footer {
+    background-color: white;
+    box-shadow: 0 -0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    color: #858796;
+}
+
+/* 动画效果 */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .table th, .table td {
+        padding: 0.5rem;
+    }
+    
+    .feature-card {
+        padding: 0.75rem;
+    }
+    
+    .welcome-banner {
+        padding: 1.5rem;
+    }
+}
+
+/* 模态框样式 */
+.modal-content {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    color: white;
+    border-bottom: none;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid #e3e6f0;
+}
+
+/* 状态徽章 */
+.badge {
+    font-weight: 600;
+    padding: 0.35em 0.65em;
+    border-radius: 0.25rem;
+}
+
+.badge-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.badge-warning {
+    background-color: var(--warning-color);
+    color: #5a5c69;
+}
+
+/* 工具提示 */
+.tooltip {
+    font-size: 0.75rem;
+}

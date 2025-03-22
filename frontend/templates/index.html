@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}SMS 验证码服务 - 首页{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="welcome-banner">
+            <div class="container">
+                <h1 class="display-5 fw-bold mb-3">欢迎使用 SMS 验证码服务</h1>
+                <p class="lead">高效便捷的短信验证码管理平台，帮助您轻松接收和查询短信验证码。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- 验证码查询卡片 -->
+    <div class="col-lg-5 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-gradient-primary">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-search me-2"></i>
+                    <h5 class="card-title mb-0">验证码查询</h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <form id="codeQueryForm">
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">
+                            <i class="fas fa-mobile-alt me-1"></i> 手机号码
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            <input type="text" class="form-control" id="phoneNumber" placeholder="输入11位手机号码" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="platformKeyword" class="form-label">
+                            <i class="fas fa-tag me-1"></i> 平台关键词（可选）
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control" id="platformKeyword" placeholder="如：淘宝、京东等">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="timeout" class="form-label">
+                            <i class="fas fa-clock me-1"></i> 等待超时（秒）
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-hourglass-half"></i></span>
+                            <input type="number" class="form-control" id="timeout" min="1" max="60" value="5">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-1"></i> 查询验证码
+                    </button>
+                </form>
+                
+                <div id="queryResult" class="mt-4 d-none">
+                    <div class="result-container">
+                        <div class="result-header mb-2">
+                            <i class="fas fa-info-circle me-1"></i> 查询结果
+                        </div>
+                        <div id="resultContent" class="result-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 服务介绍卡片 -->
+    <div class="col-lg-7 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-gradient-secondary">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <h5 class="card-title mb-0">服务信息</h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-comment-dots"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>短信接收</h5>
+                                <p>自动接收短信并提取验证码，支持多种平台和格式</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>验证码提取</h5>
+                                <p>智能识别短信中的验证码，精准提取数字密码</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>历史记录</h5>
+                                <p>保存并展示历史短信记录，方便随时查询</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>API 接口</h5>
+                                <p>提供丰富的API接口，便于集成到您的应用</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-3 text-center">
+                    <a href="/docs" class="btn btn-outline-primary">
+                        <i class="fas fa-book me-1"></i> 查看 API 文档
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 短信历史记录 -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-gradient-info">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-history me-2"></i>
+                        <h5 class="card-title mb-0">短信历史记录</h5>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-light refresh-records" title="刷新">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped mb-0" id="smsRecordsTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>发送方</th>
+                                <th>短信内容</th>
+                                <th>验证码</th>
+                                <th>接收时间</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 数据将通过JavaScript加载 -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="loadingIndicator" class="text-center my-4 d-none">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">加载中...</span>
+                    </div>
+                    <p class="mt-2 text-muted">正在加载短信记录...</p>
+                </div>
+                
+                <div id="noRecords" class="text-center my-4 d-none">
+                    <i class="fas fa-inbox fa-3x text-muted mb-2"></i>
+                    <p class="text-muted">暂无短信记录</p>
+                </div>
+                
+                <div class="table-pagination p-3">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mb-0" id="pagination">
+                            <!-- 分页将通过JavaScript生成 -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // 此处的脚本会被加载，主要逻辑放在外部JS文件中
+</script>
+{% endblock %}
