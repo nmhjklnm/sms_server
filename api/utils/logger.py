@@ -9,11 +9,10 @@ from api.config.settings import settings
 def setup_logging():
     """设置日志配置"""
     # 创建日志目录
-    log_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "logs")
-    os.makedirs(log_dir, exist_ok=True)
+    os.makedirs(settings.log_dir, exist_ok=True)
     
     # 设置日志文件路径
-    log_file = os.path.join(log_dir, f"sms_server_{datetime.now().strftime('%Y%m%d')}.log")
+    log_file = os.path.join(settings.log_dir, f"sms_server_{datetime.now().strftime('%Y%m%d')}.log")
     
     # 设置日志级别
     log_level_name = settings.log_level.upper()

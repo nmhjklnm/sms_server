@@ -6,21 +6,25 @@ from api.config.settings import settings
 
 # 确保数据目录存在
 def ensure_data_directory():
-    # 从数据库URL中提取文件路径
-    if settings.database_url.startswith('sqlite:///'):
-        db_path = settings.database_url.replace('sqlite:///', '')
+    # 确保数据目录存在
+    os.makedirs(settings.data_dir, exist_ok=True)
+    print(f"已创建数据目录: {settings.data_dir}")
+    
+    # 如果使用SQLite数据库，检查数据库文件的父目录
+    if settings.get_database_url.startswith('sqlite:///'):
+        db_path = settings.get_database_url.replace('sqlite:///', '')
         # 获取目录路径
         dir_path = os.path.dirname(db_path)
         # 如果目录不为空且不存在，则创建目录
         if dir_path and not os.path.exists(dir_path):
             os.makedirs(dir_path, exist_ok=True)
-            print(f"已创建数据目录: {dir_path}")
+            print(f"已创建数据库目录: {dir_path}")
 
 # 确保数据目录存在
 ensure_data_directory()
 
 # 数据库引擎
-engine = create_engine(settings.database_url, echo=False, connect_args=settings.db_connect_args)
+engine = create_engine(settings.get_database_url, echo=False, connect_args=settings.db_connect_args)
 
 # 数据模型
 class SMSRecord(SQLModel, table=True):
