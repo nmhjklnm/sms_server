@@ -4,8 +4,8 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # 基本配置
-    database_url: str = os.getenv("DATABASE_URL", "sqlite:///sms_database.db")
-    api_key: str = os.getenv("API_KEY", "sk-nmhjklnm")
+    database_url: str = os.getenv("DATABASE_URL", "sqlite:///data/sms_database.db")
+    api_key: Optional[str] = os.getenv("API_KEY", None)
     host: str = os.getenv("HOST", "0.0.0.0")
     port: int = int(os.getenv("PORT", "8322"))
     log_level: str = os.getenv("LOG_LEVEL", "info").lower()
@@ -16,6 +16,11 @@ class Settings(BaseSettings):
     # 应用配置
     app_title: str = "SMS 验证码接收服务"
     app_version: str = "1.0"
+    
+    @property
+    def requires_api_key(self) -> bool:
+        """检查是否需要API密钥验证"""
+        return self.api_key is not None and self.api_key.strip() != ""
     
     class Config:
         env_file = ".env"

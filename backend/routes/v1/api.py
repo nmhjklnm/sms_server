@@ -18,8 +18,12 @@ router = APIRouter(prefix="/v1/sms", tags=["sms"])
 
 # API KEY 校验
 def check_api_key(x_api_key: Optional[str] = Header(None)):
-    if (x_api_key != settings.api_key):
-        raise HTTPException(status_code=401, detail="Unauthorized")
+    # 如果设置了API_KEY，则进行验证
+    if settings.requires_api_key:
+        if (x_api_key != settings.api_key):
+            raise HTTPException(status_code=401, detail="Unauthorized")
+    # 如果没有设置API_KEY，则跳过验证
+    return True
 
 # 接收短信接口
 @router.post("/receive")
