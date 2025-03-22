@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # 基本配置
-    database_url: Optional[str] = None
+    database_url: Optional[str] = os.getenv("DATABASE_URL", "sqlite:////tmp/data/sms_database.db")
     api_key: Optional[str] = os.getenv("API_KEY", None)
     host: str = os.getenv("HOST", "0.0.0.0")
     port: int = int(os.getenv("PORT", "8322"))
